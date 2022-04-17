@@ -14,6 +14,8 @@
 		78FDC9A0280CB187007494F5 /* metal_raytracerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FDC99F280CB187007494F5 /* metal_raytracerTests.swift */; };
 		78FDC9AA280CB187007494F5 /* metal_raytracerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FDC9A9280CB187007494F5 /* metal_raytracerUITests.swift */; };
 		78FDC9AC280CB187007494F5 /* metal_raytracerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FDC9AB280CB187007494F5 /* metal_raytracerUITestsLaunchTests.swift */; };
+		78FDC9B9280CB1A6007494F5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FDC9B8280CB1A6007494F5 /* MainView.swift */; };
+		78FDC9BB280CB2BE007494F5 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 78FDC9BA280CB2BE007494F5 /* Shaders.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		78FDC9A5280CB187007494F5 /* metal-raytracerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "metal-raytracerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78FDC9A9280CB187007494F5 /* metal_raytracerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = metal_raytracerUITests.swift; sourceTree = "<group>"; };
 		78FDC9AB280CB187007494F5 /* metal_raytracerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = metal_raytracerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		78FDC9B8280CB1A6007494F5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		78FDC9BA280CB2BE007494F5 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 				78FDC991280CB187007494F5 /* Assets.xcassets */,
 				78FDC993280CB187007494F5 /* Main.storyboard */,
 				78FDC996280CB187007494F5 /* metal_raytracer.entitlements */,
+				78FDC9B8280CB1A6007494F5 /* MainView.swift */,
+				78FDC9BA280CB2BE007494F5 /* Shaders.metal */,
 			);
 			path = "metal-raytracer";
 			sourceTree = "<group>";
@@ -251,7 +257,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78FDC9BB280CB2BE007494F5 /* Shaders.metal in Sources */,
 				78FDC990280CB185007494F5 /* ViewController.swift in Sources */,
+				78FDC9B9280CB1A6007494F5 /* MainView.swift in Sources */,
 				78FDC98E280CB185007494F5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
