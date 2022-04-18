@@ -1,0 +1,3 @@
+# metal-raytracer
+
+Following *Ray Tracing in One Weekend* but on the GPU with Metal...
