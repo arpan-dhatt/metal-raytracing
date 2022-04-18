@@ -27,6 +27,18 @@ Ray create_ray(constant Uniforms *unifs, uint2 uv) {
     };
 }
 
+void create_rays(constant Uniforms *unifs, uint2 uv, thread Ray* rays) {
+    for (uint i = 0; i < 2; i++) {
+        for (uint j = 0; j < 2; j++) {
+            float3 offset = 0.333 * unifs->horizontal * i - 0.333 * unifs->vertical * j;
+            rays[i * 2 + j] = {
+                half3(unifs->origin),
+                half3(unifs->upper_left + unifs->horizontal * uv.x - unifs->vertical * uv.y - unifs->origin + offset)
+            };
+        }
+    }
+}
+
 half hit_sphere(half3 center, half radius, thread const Ray& r) {
     half3 oc = r.pos - center;
     half a = dot(r.dir, r.dir);
@@ -54,6 +66,11 @@ half3 ray_color(thread const Ray& r) {
 kernel void ray_pass(texture2d<half, access::write> out [[ texture(0) ]],
                      constant Uniforms *unifs [[ buffer(0) ]],
                      uint2 gid [[thread_position_in_grid]]) {
-    Ray r = create_ray(unifs, gid);
-    out.write(half4(ray_color(r), 1.0), gid);
+    Ray rays[4];
+    create_rays(unifs, gid, rays);
+    half3 col = half3();
+    for (uint i = 0; i < 4; i++) {
+        col += 0.25 * ray_color(rays[i]);
+    }
+    out.write(half4(col, 1.0), gid);
 }
