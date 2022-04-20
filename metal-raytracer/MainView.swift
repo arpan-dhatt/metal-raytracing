@@ -14,6 +14,7 @@ typealias float4 = SIMD4<Float>
 
 struct Uniforms {
     var origin: float3
+    var samples: UInt32
     var sphere_count: UInt32
     var upper_left: float3
     var horizontal: float3
@@ -23,6 +24,7 @@ struct Uniforms {
 struct Sphere {
     var center: float3
     var radius: Float
+    var albedo: float3
 }
 
 class MainView : MTKView {
@@ -69,7 +71,7 @@ class MainView : MTKView {
     func createRandUnitSphere(length: Int) -> MTLBuffer? {
         var float3s = Array.init(repeating: float3.zero, count: length)
         for i in 0..<length {
-            var val = float3.random(in: 0..<1.0);
+            var val = float3.random(in: -1.0..<1.0);
             while (simd_length(val) > 1.0) {
                 val = float3.random(in: 0..<1.0);
             }
@@ -90,12 +92,15 @@ extension MainView {
         let viewport_width: Float = aspect_ratio * viewport_height;
         
         let spheres = [
-            Sphere(center: float3(x: sin(Float(frameCount) / 60) * 2.0, y: cos(Float(frameCount) / 60) * 2.0, z: 5.0), radius: 1.0),
-            Sphere(center: float3(x: 0.0, y: -51.0, z: 5.0), radius: 50.0)
+            Sphere(center: float3(x: sin(Float(frameCount) / 60) * 2.0, y: cos(Float(frameCount) / 60) * 2.0, z: 5.0), radius: 1.0, albedo: float3(0.3, 0.025, 0.3)),
+            Sphere(center: float3(x: -2.0, y: 1.0, z: 4.0), radius: 1.0, albedo: float3(0.3, 0.025, 0.3)),
+            Sphere(center: float3(x: 2.0, y: 2.0, z: 6.0), radius: 1.0, albedo: float3(0.3, 0.025, 0.3)),
+            Sphere(center: float3(x: 0.0, y: -51.0, z: 5.0), radius: 50.0, albedo: float3(0.3, 0.025, 0.3))
         ];
         
         let uniforms = Uniforms(
             origin: float3.zero,
+            samples: 2,
             sphere_count: UInt32(spheres.count),
             upper_left: simd_float3(x: -viewport_width / 2.0, y: viewport_height / 2.0, z: focal_distance),
             horizontal: simd_float3(x: viewport_width / Float(drawable.texture.width), y: 0.0, z: 0.0),
