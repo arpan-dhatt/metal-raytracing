@@ -94,6 +94,15 @@ half3 extend_ray(constant Uniforms *unifs,
     return (1.0-hit.t)*half3(1.0, 1.0, 1.0) + hit.t*half3(0.5, 0.7, 1.0);
 }
 
+uint randomize(thread uint *rand_state, uint in) {
+    uint r = *rand_state + in;
+    r ^= r << 13;
+    r ^= r >> 17;
+    r ^= r << 5;
+    *rand_state = r;
+    return r;
+}
+
 kernel void ray_pass(texture2d<half, access::write> out [[ texture(0) ]],
                      constant Uniforms *unifs [[ buffer(0) ]],
                      constant Sphere *spheres [[ buffer(1) ]],
@@ -101,6 +110,7 @@ kernel void ray_pass(texture2d<half, access::write> out [[ texture(0) ]],
                      device float3 *rand_units [[ buffer(3) ]],
                      uint2 gid [[thread_position_in_grid]]) {
     half3 col = half3(1.0);
+    uint random_state = 1234;
     for (uint i = 0; i < unifs->samples; i++) {
         for (uint j = 0; j < 4; j++) {
             Ray rays[4];
@@ -110,6 +120,7 @@ kernel void ray_pass(texture2d<half, access::write> out [[ texture(0) ]],
             for (uint k = 0; k < 2; k++) {
                 if (active[j]) {
                     uint id = gid.x * out.get_width() + gid.y + j * 719 * i + k;
+                    id = randomize(&random_state, id);
                     ray_col *= extend_ray(unifs, spheres, rand_floats, rand_units, id & 4095, j, rays, active);
                 }
             }

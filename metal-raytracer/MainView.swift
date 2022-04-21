@@ -94,13 +94,13 @@ extension MainView {
         let spheres = [
             Sphere(center: float3(x: sin(Float(frameCount) / 60) * 2.0, y: cos(Float(frameCount) / 60) * 2.0, z: 5.0), radius: 1.0, albedo: float3(0.3, 0.025, 0.3)),
             Sphere(center: float3(x: -2.0, y: 1.0, z: 4.0), radius: 1.0, albedo: float3(0.3, 0.025, 0.3)),
-            Sphere(center: float3(x: 2.0, y: 2.0, z: 6.0), radius: 1.0, albedo: float3(0.3, 0.025, 0.3)),
+            Sphere(center: float3(x: 2.0, y: 2.0, z: 6.0), radius: 1.0, albedo: float3(0.0, 0.25, 0.3)),
             Sphere(center: float3(x: 0.0, y: -51.0, z: 5.0), radius: 50.0, albedo: float3(0.3, 0.025, 0.3))
         ];
         
         let uniforms = Uniforms(
             origin: float3.zero,
-            samples: 2,
+            samples: 10,
             sphere_count: UInt32(spheres.count),
             upper_left: simd_float3(x: -viewport_width / 2.0, y: viewport_height / 2.0, z: focal_distance),
             horizontal: simd_float3(x: viewport_width / Float(drawable.texture.width), y: 0.0, z: 0.0),
